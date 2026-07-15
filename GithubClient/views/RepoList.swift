@@ -1,0 +1,33 @@
+//
+//  RepoList.swift
+//  GithubClient
+//
+//  Created by Usuario invitado on 15/7/26.
+//
+
+import SwiftUI
+
+struct RepoList: View {
+    var body: some View {
+        NavigationStack{
+            ScrollView{
+                VStack{
+                    RepoItem()
+                    RepoItem()
+                    RepoItem()
+                    RepoItem()
+                    RepoItem()
+                    RepoItem()
+                }
+                .padding()
+            }
+            .navigationTitle("Repositorios")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+#Preview {
+    RepoList()
+}
+

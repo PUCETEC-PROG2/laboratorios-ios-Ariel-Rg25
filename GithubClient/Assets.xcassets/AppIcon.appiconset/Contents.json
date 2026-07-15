@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "d28460c98f514c089be7ba2370cef285-convertido-de-webp.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "d28460c98f514c089be7ba2370cef285-convertido-de-webp 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -23,6 +25,7 @@
           "value" : "tinted"
         }
       ],
+      "filename" : "d28460c98f514c089be7ba2370cef285-convertido-de-webp 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
