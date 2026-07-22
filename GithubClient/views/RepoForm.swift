@@ -2,41 +2,75 @@
 //  RepoForm.swift
 //  GithubClient
 //
-//  Created by Usuario invitado on 15/7/26.
+//  Created by Usuario invitado on 8/7/26.
 //
+
 
 import SwiftUI
 
 struct RepoForm: View {
-
-    @State private var repoName: String = ""
-    @State private var repoDescription: String = ""
-
+    @StateObject private var viewController = RepoFormViewController()
+    @Binding var selectedTab: Int
+    
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Nombre del repositorio", text: $repoName)
+                
+                if viewController.isLoading {
+                    ProgressView("Creando repositorio...")
+                } else {
+                    
+                    Spacer()
+                    TextField(
+                        "",
+                        text: $viewController.repoName,
+                        prompt: Text("Nombre del repositorio")
+                            .foregroundStyle(.accent.opacity(0.6))
+                    )
                     .textFieldStyle(.roundedBorder)
                     .padding(.vertical)
-
-                TextField("Descripción del repositorio", text: $repoDescription)
+                    
+                    TextField(
+                        "",
+                        text: $viewController.repoDescription,
+                        prompt: Text("Descripcion del repositorio")
+                            .foregroundStyle(.accent.opacity(0.6)),
+                        axis: .vertical,
+                    )
                     .textFieldStyle(.roundedBorder)
-                    .padding(.bottom)
-
-                Button(action: {
-                    print("Botón presionado")
-                }) {
-                    Label("Crear Repo", systemImage: "plus")
+                    .lineLimit(4...10)
+                    .padding(.vertical)
+                    
+                    if let errorMsg = viewController.errorMsg {
+                        Text(errorMsg)
+                            .foregroundStyle(.red)
+                            .padding()
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        Task {
+                            await viewController.createRepository()
+                            if viewController.errorMsg == nil {
+                                selectedTab = 0
+                            }
+                        }
+                    }){
+                        Label("Guardar Repo",systemImage:
+                                "square.and.arrow.down")
+                        .padding(.all, 8)
+                        
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.borderedProminent)
             }
-            .navigationTitle("Formularios")
+            .navigationTitle("Formulario de repositorio")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    RepoForm()
+    RepoForm(selectedTab: .constant(1))
 }
-
